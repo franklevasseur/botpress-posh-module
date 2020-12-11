@@ -1,6 +1,6 @@
-$bot = "C:\Users\franc\Documents-franc\botpress-root"
+$BOT = "C:\Users\franc\Documents-franc\botpress-root"
 
-function bot{cd $bot}
+function bot{cd $BOT}
 
 Function yb {
     Param ([string]$module)
@@ -46,3 +46,6 @@ Function bpconf() {
         echo "${pwd}\out\bp\data\global\config\${filename}.json"
 	}
 }
+
+Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf
+Export-ModuleMember -Variable BOT
