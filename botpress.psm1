@@ -5,7 +5,7 @@ function bot{cd $bot}
 Function yb {
     Param ([string]$module)
 
-    if ($module -eq 'core' || $module -eq 'studio' || $module -eq 'shared' || $module -eq 'admin') {
+    if (($module -eq 'core') -or ($module -eq 'studio') -or ($module -eq 'shared') -or ($module -eq 'admin')) {
         yarn cmd build:$module
     } elseif ($module -ne '') {
         yarn cmd build:modules --m $module
@@ -36,13 +36,13 @@ Function y {
 
 Function bpconf() {
 	Param ([string]$filename)
-	
-    if ( $filename -eq "global" || $args.Count -eq 0 ) {
-		echo "$(pwd)\out\bp\data\global\botpress.config.json"
+
+    if (($filename -eq 'global') -or ($filename -eq '')) {
+		echo "${pwd}\out\bp\data\global\botpress.config.json"
 	} elseif ( $filename -eq "posh" )
     {
 		echo "${PSScriptRoot}\botpress.psm1"
 	} else {
-        echo "$(pwd)\out\bp\data\global\config\${filename}.json"
+        echo "${pwd}\out\bp\data\global\config\${filename}.json"
 	}
 }
