@@ -1,0 +1,1 @@
+To install, just clone this repo inside your `Modules\` directory and import it from your PowerShell profile.
