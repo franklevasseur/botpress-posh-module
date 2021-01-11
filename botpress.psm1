@@ -58,7 +58,7 @@ Function bitf() {
     Param ([string]$command)
 
     if (($command -eq 'ls') -or ($command -eq 'list') -or ($command -eq '')) {
-        (cd $BOT && cd "bitfan-client" && yarn start ls)
+        node -e "require('@botpress/bitfan').default.datasets.listFiles().then(x => console.log(x))"
     }
     else {
         Write-Output "${command} is not a valid bitfan command."
