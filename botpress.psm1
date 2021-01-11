@@ -1,15 +1,17 @@
 $BOT = "C:\Users\franc\Documents-franc\botpress-root"
 
-function bot{cd $BOT}
+function bot { cd $BOT }
 
 Function yb {
     Param ([string]$module)
 
     if (($module -eq 'core') -or ($module -eq 'studio') -or ($module -eq 'shared') -or ($module -eq 'admin')) {
         yarn cmd build:$module
-    } elseif ($module -ne '') {
+    }
+    elseif ($module -ne '') {
         yarn cmd build:modules --m $module
-    } else {
+    }
+    else {
         yarn build
     }
 }
@@ -19,7 +21,11 @@ Function ys {
 
     if ($entry_point -eq 'l') {
         yarn start lang --dim=300
-    } else {
+    }
+    elseif ($entry_point -eq 'stan') {
+        ys nlu --languageURL=http://localhost:3100 --ducklingURL=http://192.168.152.117:8000/ --modelCacheSize=1gb --body-size=900kb
+    }
+    else {
         yarn start $entry_point $args
     }
 }
@@ -35,16 +41,17 @@ Function y {
 
 
 Function bpconf() {
-	Param ([string]$filename)
+    Param ([string]$filename)
 
     if (($filename -eq 'global') -or ($filename -eq '')) {
-		echo "${pwd}\out\bp\data\global\botpress.config.json"
-	} elseif ( $filename -eq "posh" )
-    {
-		echo "${PSScriptRoot}\botpress.psm1"
-	} else {
-        echo "${pwd}\out\bp\data\global\config\${filename}.json"
-	}
+        Write-Output "${pwd}\out\bp\data\global\botpress.config.json"
+    }
+    elseif ( $filename -eq "posh" ) {
+        Write-Output "${PSScriptRoot}\botpress.psm1"
+    }
+    else {
+        Write-Output "${pwd}\out\bp\data\global\config\${filename}.json"
+    }
 }
 
 Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf
