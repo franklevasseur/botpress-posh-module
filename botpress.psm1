@@ -54,5 +54,16 @@ Function bpconf() {
     }
 }
 
-Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf
+Function bitf() {
+    Param ([string]$command)
+
+    if (($command -eq 'ls') -or ($command -eq 'list') -or ($command -eq '')) {
+        (cd $BOT && cd "bitfan-client" && yarn start ls)
+    }
+    else {
+        Write-Output "${command} is not a valid bitfan command."
+    }
+}
+
+Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf, bitf
 Export-ModuleMember -Variable BOT
