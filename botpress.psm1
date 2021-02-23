@@ -23,7 +23,7 @@ Function ys {
         yarn start lang --dim=300
     }
     elseif ($entry_point -eq 'stan') {
-        ys nlu --languageURL=http://localhost:3100 --ducklingURL=http://192.168.152.117:8000/ --modelCacheSize=1gb --body-size=900kb
+        ys nlu --languageURL=http://localhost:3100 --ducklingURL=http://localhost:8000/ --modelCacheSize=1gb --body-size=900kb --silent
     }
     else {
         yarn start $entry_point $args
@@ -65,5 +65,9 @@ Function bitf() {
     }
 }
 
-Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf, bitf
+Function redis() {
+    docker run -it --rm -p 6379:6379 --name docker-redis redis
+}
+
+Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf, bitf, redis
 Export-ModuleMember -Variable BOT
