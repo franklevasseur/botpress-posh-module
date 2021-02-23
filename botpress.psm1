@@ -1,6 +1,28 @@
-$BOT = "C:\Users\franc\Documents-franc\botpress-root"
+$BOT = "C:\\Users\\franc\\Documents-franc\\botpress-root"
 
-function bot { cd $BOT }
+function bot { 
+    $script = "
+        const cliSelect = require('cli-select')
+        const fs = require('fs')
+        const path = require('path')
+        const bot = '$bot'
+        const childDirs = fs.readdirSync(bot, { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => dirent.name)
+            .filter(name => !name.startsWith('.'))
+        cliSelect({ values: ['root', ...childDirs], outputStream: process.stderr }).then(x => {
+                if (x.value === 'root') {
+                    console.log(bot)
+                    return
+                }
+                console.log(path.join(bot, x.value))
+            }).catch(() => {
+                console.log('.')
+                return
+            })
+    "
+    cd $(node -e $script)
+ }
 
 Function yb {
     Param ([string]$module)
