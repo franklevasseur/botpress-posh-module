@@ -160,5 +160,19 @@ Function dirname() {
     Split-Path $args
 }
 
-Export-ModuleMember -Function bot, yb, ys, yt, yp, yw, y, bpconf, bitf, redis, bpsql, touch, efs, escapepath, dirname
+Function cwd() {
+    $curdir = $(pwd)
+    $targetdir = $args[0]
+    $arguments = $args | Select-Object -Skip 1
+    $command = [system.String]::Join(" ", $arguments)
+    
+    try {
+        cd $targetdir
+        Invoke-Expression -Command $command
+    } finally {
+        cd $curdir
+    }
+}
+
+Export-ModuleMember -Function bot, yb, ys, yt, yp, yw, y, bpconf, bitf, redis, bpsql, touch, efs, escapepath, dirname, cwd
 Export-ModuleMember -Variable BOT, bp_sql_uri, bp_cache, $bp_posh
