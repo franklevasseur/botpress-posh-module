@@ -27,10 +27,21 @@ function bot {
     cd $(node -e $script)
  }
 
+Function escapepath() {
+    Param ([string]$path, [boolean]$forward=$false)
+    if ( $forward ) {
+        $full_file_path = ($path | Resolve-Path).path -replace '[\\/]', '/'
+        echo $full_file_path    
+    } else {
+        $full_file_path = ($path | Resolve-Path).path -replace '[\\/]', '\\'
+        echo $full_file_path
+    }
+}
+
 Function efs() {
     Param ([string]$command, [string]$file)
 
-    $full_file_path = ($file | Resolve-Path).path -replace '[\\/]', '\\'
+    $full_file_path = $(escapePath $file)
 
     $script = "
         const Prompt = require('prompt-password');
@@ -113,6 +124,14 @@ Function y {
     yarn $args
 }
 
+Function yp {
+    yarn package $args
+}
+
+Function yw {
+    yarn workspace $args
+}
+
 Function bpconf() {
     Param ([string]$filename)
 
@@ -137,5 +156,9 @@ Function bpsql() {
     psql $bp_sql_uri
 }
 
-Export-ModuleMember -Function bot, yb, ys, yt, y, bpconf, bitf, redis, bpsql, touch, efs
+Function dirname() {
+    Split-Path $args
+}
+
+Export-ModuleMember -Function bot, yb, ys, yt, yp, yw, y, bpconf, bitf, redis, bpsql, touch, efs, escapepath, dirname
 Export-ModuleMember -Variable BOT, bp_sql_uri, bp_cache, $bp_posh
