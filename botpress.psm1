@@ -1,16 +1,16 @@
-$BOT = "C:\\Users\\franc\\Documents-franc\\botpress-root"
+$bot = "C:\\Users\\franc\\Documents-franc\\botpress-root"
 $bp_sql_uri = "postgres://postgres:postgres@localhost:5432/botpress"
-$bp_cache = "C:\Users\franc\botpress"
-$bp_posh = "${PSScriptRoot}\botpress.psm1"
+$bp_cache = "C:\\Users\\franc\\botpress"
+$bp_posh = "${PSScriptRoot}\\botpress.psm1"
 
 Function escapepath() {
     Param ([string]$path, [boolean]$forward=$false)
     if ( $forward ) {
         $full_file_path = ($path | Resolve-Path).path -replace '[\\/]', '/'
-        echo $full_file_path    
+        Write-Output $full_file_path    
     } else {
         $full_file_path = ($path | Resolve-Path).path -replace '[\\/]', '\\'
-        echo $full_file_path
+        Write-Output $full_file_path
     }
 }
 
@@ -52,7 +52,12 @@ Function duck() {
 }
 
 Function bpsql() {
-    psql $bp_sql_uri
+    param([Parameter(Mandatory=$false)][string]$query)
+    if(!($query)){
+        psql $bp_sql_uri
+    } else {
+        psql -c $query $bp_sql_uri
+    }
 }
 
 Function dirname() {
@@ -74,4 +79,4 @@ Function cwd() {
 }
 
 Export-ModuleMember -Function yb, ys, yt, yp, yw, y, redis, duck, bpsql, touch, escapepath, dirname, cwd
-Export-ModuleMember -Variable BOT, bp_sql_uri, bp_cache, bp_posh
+Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh
