@@ -2,6 +2,7 @@ $bot = "C:\\Users\\franc\\Documents-franc\\botpress-root"
 $bp_sql_uri = "postgres://postgres:postgres@localhost:5432/botpress"
 $bp_cache = "C:\\Users\\franc\\botpress"
 $bp_posh = "${PSScriptRoot}\\botpress.psm1"
+$code="C:\\Users\\franc\\Documents-franc\\code"
 
 Function escapepath() {
     Param ([string]$path, [boolean]$forward=$false)
@@ -79,4 +80,4 @@ Function cwd() {
 }
 
 Export-ModuleMember -Function yb, ys, yt, yp, yw, y, redis, duck, bpsql, touch, escapepath, dirname, cwd
-Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh
+Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
