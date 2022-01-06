@@ -16,27 +16,27 @@ Function escapepath() {
 }
 
 Function yb {
-    yarn build $args
+    yarn build @args
 }
 
 Function ys {
-    yarn start $args
+    yarn start @args
 }
 
 Function yt {
-    yarn test $args
+    yarn test @args
 }
 
 Function y {
-    yarn $args
+    yarn @args
 }
 
 Function yp {
-    yarn package $args
+    yarn package @args
 }
 
 Function yw {
-    yarn workspace $args
+    yarn workspace @args
 }
 
 Function touch() {
@@ -62,7 +62,11 @@ Function bpsql() {
 }
 
 Function dirname() {
-    Split-Path $args
+    if(!($args)){
+        Write-Output "arguments expected"
+        return
+    }
+    Split-Path @args
 }
 
 Function cwd() {
