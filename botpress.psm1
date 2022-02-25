@@ -49,6 +49,24 @@ Function yp {
     yarn package @args
 }
 
+Function ywls() {
+    $yarn_release = $(yv)
+
+    if ($yarn_release -eq 'berry') {
+        $raw = $((yarn workspaces list --json).Split('\n'))
+        Foreach ($i in $raw)
+        {
+            (Write-Output $i | ConvertFrom-Json).Name
+        }
+        return
+    }
+
+    if ($yarn_release -eq 'classic') {
+        Write-Output (yarn workspaces info | Select -Skip 1 | Select -SkipLast 1 | ConvertFrom-Json | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'}).Name
+        return
+    }
+}
+
 Function yw {
     yarn workspace @args
 }
@@ -101,6 +119,6 @@ Function newdate() {
     node -e "console.log(new Date())"
 }
 
-Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate
+Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate
 Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
 Export-ModuleMember -Alias source
