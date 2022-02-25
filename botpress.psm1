@@ -1,8 +1,10 @@
 $bot = "C:\\Users\\franc\\Documents-franc\\botpress-root"
 $bp_sql_uri = "postgres://postgres:postgres@localhost:5432/botpress"
 $bp_cache = "C:\\Users\\franc\\botpress"
-$bp_posh = "${PSScriptRoot}\\botpress.psm1"
+$bp_posh = escapepath("${PSScriptRoot}\\botpress.psm1")
 $code="C:\\Users\\franc\\Documents-franc\\code"
+
+Set-Alias -Name source -Value Import-Module
 
 Function escapepath() {
     Param ([string]$path, [boolean]$forward=$false)
@@ -13,6 +15,18 @@ Function escapepath() {
         $full_file_path = ($path | Resolve-Path).path -replace '[\\/]', '\\'
         Write-Output $full_file_path
     }
+}
+
+Function yv() {
+    $raw = $(yarn -v)
+    $nodejs_script = "
+        const raw = '$raw'
+        const [major, minor, patch] = raw.split('.')
+        const majorNum = parseInt(major)
+        if (majorNum > 1) { console.log('berry') }
+        else if (majorNum === 1) { console.log('classic') }
+    "
+    node -e $nodejs_script
 }
 
 Function yb {
@@ -44,11 +58,11 @@ Function touch() {
     New-Item -ItemType file $file_name
 }
 
-Function redis() {
+Function docker_redis() {
     docker run -it --rm -p 6379:6379 --name redis redis
 }
 
-Function duck() {
+Function docker_duck() {
     docker run -it --rm -p 8000:8000 --name duckling rasa/duckling
 }
 
@@ -83,5 +97,10 @@ Function cwd() {
     }
 }
 
-Export-ModuleMember -Function yb, ys, yt, yp, yw, y, redis, duck, bpsql, touch, escapepath, dirname, cwd
+Function newdate() {
+    node -e "console.log(new Date())"
+}
+
+Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate
 Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
+Export-ModuleMember -Alias source
