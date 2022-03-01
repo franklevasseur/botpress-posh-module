@@ -119,6 +119,10 @@ Function newdate() {
     node -e "console.log(new Date())"
 }
 
-Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate
+Function tsn() {
+    ts-node --transpile-only @args
+}
+
+Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate, tsn
 Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
 Export-ModuleMember -Alias source
