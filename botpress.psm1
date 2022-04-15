@@ -110,6 +110,11 @@ Function docker_duck() {
     docker run -it --rm -p 8000:8000 --name duckling rasa/duckling
 }
 
+Function docker_minio() {
+    param([Parameter(Mandatory=$true)][string]$datadir)
+    docker run -it --rm -p 9000:9000 -p 9001:9001 --name minio minio/minio server $datadir --console-address ":9001"
+}
+
 Function bpsql() {
     param([Parameter(Mandatory=$false)][string]$query)
     if(!($query)){
@@ -124,7 +129,13 @@ Function bpsql() {
 #################
 
 Function mkvenv() {
-    python -m venv .venv
+    Param ([string]$venvname='.venv')
+    python -m venv $venvname
+}
+
+Function rmvenv() {
+    Param ([string]$venvname='.venv')
+    Remove-Item -Recurse -Force $venvname
 }
 
 # venv check out
@@ -137,6 +148,6 @@ Function venvco() {
 ### 5. Exports ###
 ##################
 
-Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, bpsql, touch, escapepath, dirname, cwd, newdate, tsn, venvco, mkvenv
+Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, docker_minio, bpsql, touch, escapepath, dirname, cwd, newdate, tsn, venvco, mkvenv
 Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
 Export-ModuleMember -Alias source
