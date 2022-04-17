@@ -3,7 +3,7 @@
 #############################
 
 $bot = "C:\\Users\\franc\\Documents-franc\\botpress-root"
-$bp_sql_uri = "postgres://postgres:postgres@localhost:5432/botpress"
+$bp_sql_uri = "postgres://postgres:postgres@localhost:5433/botpress"
 $bp_cache = "C:\\Users\\franc\\botpress"
 $bp_posh = escapepath "${PSScriptRoot}\\botpress.psm1"
 $code="C:\\Users\\franc\\Documents-franc\\code"
