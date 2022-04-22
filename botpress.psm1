@@ -13,6 +13,7 @@ $code="C:\\Users\\franc\\Documents-franc\\code"
 #############################
 
 Set-Alias -Name source -Value Import-Module
+New-Alias which get-command
 
 Function escapepath() {
     Param ([string]$path, [boolean]$forward=$false)
