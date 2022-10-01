@@ -2,11 +2,13 @@
 ### 0. Botpress Constants ###
 #############################
 
-$bot = "C:\\Users\\franc\\Documents-franc\\botpress-root"
+$user = "francois"
+$bot = "C:\\Users\\$user\\Documents\\botpress-root"
 $bp_sql_uri = "postgres://postgres:postgres@localhost:5433/botpress"
-$bp_cache = "C:\\Users\\franc\\botpress"
-$bp_posh = escapepath "${PSScriptRoot}\\botpress.psm1"
-$code="C:\\Users\\franc\\Documents-franc\\code"
+$bp_cache = "C:\\Users\\$user\\botpress"
+$bp_posh = "${PSScriptRoot}\\botpress.psm1"
+$profile = "C:\Users\$user\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+$code="C:\\Users\\$user\\Documents\\code"
 
 #############################
 ### 1. Basic Unix / Utils ###
@@ -149,6 +151,6 @@ Function venvco() {
 ### 5. Exports ###
 ##################
 
-Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, docker_minio, bpsql, touch, escapepath, dirname, cwd, newdate, tsn, venvco, mkvenv
+Export-ModuleMember -Function yv, yb, ys, yt, yp, yw, y, ywls, docker_redis, docker_duck, docker_minio, bpsql, touch, escapepath, dirname, cwd, newdate, tsn, venvco, mkvenv, rmvenv
 Export-ModuleMember -Variable bot, bp_sql_uri, bp_cache, bp_posh, code
 Export-ModuleMember -Alias source
