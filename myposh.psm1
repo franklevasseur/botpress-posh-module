@@ -45,12 +45,19 @@ Function newdate() {
 ############################
 
 Function tsn { ts-node --transpile-only @args }
+
+Function y { yarn @args }
 Function yb { yarn build @args }
 Function ys { yarn start @args }
 Function yt { yarn test @args }
-Function y { yarn @args }
 Function yp { yarn package @args }
 Function yw { yarn workspace @args }
+
+Function p { pnpm @args }
+Function pb { pnpm run build @args }
+Function ps { pnpm run start @args }
+Function pt { pnpm run test @args }
+Function pp { pnpm run package @args }
 
 #################
 ### 3. Python ###
@@ -89,10 +96,14 @@ Function docker_minio() {
     docker run -it --rm -p 9000:9000 -p 9001:9001 --name minio minio/minio server $datadir --console-address ":9001"
 }
 
+Function docker_postgres() {
+    docker run -it --rm --name postgres -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres postgres 
+}
+
 ##################
 ### 5. Exports ###
 ##################
 
-Export-ModuleMember -Function yb, ys, yt, yp, yw, y, docker_redis, docker_duck, docker_minio, touch, escapepath, dirname, newdate, tsn, venvco, mkvenv, rmvenv
+Export-ModuleMember -Function yb, ys, yt, yp, yw, y, p, pb, ps, pt, pp, docker_redis, docker_duck, docker_minio, touch, escapepath, dirname, newdate, tsn, venvco, mkvenv, rmvenv
 Export-ModuleMember -Variable myposh, code
 Export-ModuleMember -Alias source
