@@ -53,11 +53,18 @@ Function yt { yarn test @args }
 Function yp { yarn package @args }
 Function yw { yarn workspace @args }
 
-Function p { pnpm @args }
+Function p { 
+    if(!($args)) {
+        pnpm i
+    } else {
+        pnpm @args
+    }
+}
 Function pb { pnpm run build @args }
 Function ps { pnpm run start @args }
 Function pt { pnpm run test @args }
 Function pp { pnpm run package @args }
+Function pw { pnpm -r --stream --workspace-concurrency=1 @args }
 
 #################
 ### 3. Python ###
