@@ -111,6 +111,6 @@ Function docker_postgres() {
 ### 5. Exports ###
 ##################
 
-Export-ModuleMember -Function yb, ys, yt, yp, yw, y, p, pb, ps, pt, pp, docker_redis, docker_duck, docker_minio, touch, escapepath, dirname, newdate, tsn, venvco, mkvenv, rmvenv
+Export-ModuleMember -Function yb, ys, yt, yp, yw, y, p, pb, ps, pt, pp, pw, docker_redis, docker_duck, docker_minio, touch, escapepath, dirname, newdate, tsn, venvco, mkvenv, rmvenv
 Export-ModuleMember -Variable myposh, code
 Export-ModuleMember -Alias source
